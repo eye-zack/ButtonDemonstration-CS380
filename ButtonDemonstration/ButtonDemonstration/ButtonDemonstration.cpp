@@ -104,7 +104,6 @@ LRESULT CALLBACK winproc(HWND hwnd, UINT wm, WPARAM wp, LPARAM lp)
             MessageBox(hwnd, L"You clicked OK", L"BN_CLICKED", MB_ICONINFORMATION);
         }
         else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 3) {
-            MessageBox(hwnd, L"You clicked Quit", L"BN_CLICKED", MB_ICONERROR);
             PostQuitMessage(0);
         }
     }
