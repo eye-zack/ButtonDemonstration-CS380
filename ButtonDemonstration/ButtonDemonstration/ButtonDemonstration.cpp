@@ -37,8 +37,8 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, PSTR cmdline, int cmd
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
+        1400,
+        800,
         NULL,
         NULL,
         hInst,
@@ -110,18 +110,20 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, PSTR cmdline, int cmd
 }
 LRESULT CALLBACK winproc(HWND hwnd, UINT wm, WPARAM wp, LPARAM lp)
 {
-    if (wm == WM_DESTROY) {
-        PostQuitMessage(0);
-    } if (wm == WM_COMMAND) {
-        if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 1) {
-            MessageBox(hwnd, L"You clicked ONE", L"BN_CLICKED", MB_ICONINFORMATION);
-        }
-        else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 2) {
-            MessageBox(hwnd, L"You clicked TWO", L"BN_CLICKED", MB_ICONINFORMATION);
-        }
-        else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 3) {
+    switch (wm) {
+        case WM_DESTROY:
             PostQuitMessage(0);
-        }
+        case WM_COMMAND: 
+            if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 1) {
+                MessageBox(hwnd, L"You clicked ONE", L"BN_CLICKED", MB_ICONINFORMATION);
+            }
+            else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 2) {
+                MessageBox(hwnd, L"You clicked TWO", L"BN_CLICKED", MB_ICONINFORMATION);
+            }
+            else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 3) {
+                MessageBox(hwnd, L"You clicked QUIT", L"BN_CLICKED", MB_ICONINFORMATION);
+                PostQuitMessage(0);
+            }
     }
     return DefWindowProc(hwnd, wm, wp, lp);
 }
