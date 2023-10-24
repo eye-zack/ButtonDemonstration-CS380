@@ -102,36 +102,29 @@ LRESULT CALLBACK winproc(HWND hwnd, UINT wm, WPARAM wp, LPARAM lp)
     switch (wm) {
         case WM_DESTROY:
             PostQuitMessage(0);
-        case WM_COMMAND: 
+        case WM_COMMAND:
+            HFONT hFont = CreateFont(100, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, ANSI_CHARSET,
+                OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
+                L"Arial");
+            HWND StaticText = CreateWindow(
+                L"STATIC",
+                L"",
+                WS_VISIBLE | WS_CHILD | SS_CENTER,
+                440,
+                50,
+                500,
+                200,
+                hwnd,
+                NULL,
+                HINSTANCE(),
+                NULL);
             if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 1) {
-                CreateWindow(
-                    L"STATIC",
-                    L"ONE",
-                    WS_VISIBLE | WS_CHILD | SS_CENTER,  // will probably need SS_OWNERDRAW. the owner window recieves a WM_DRAWITEM whenever the control needs to be drawn 
-                    440,
-                    50,
-                    500,
-                    200,
-                    hwnd,
-                    (HMENU)4,
-                    HINSTANCE(),
-                    NULL);
-                break;
+                SetWindowText(StaticText, L"ONE");
+                SendMessage(StaticText, WM_SETFONT, WPARAM(hFont), TRUE);
             }
             else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 2) {
-                CreateWindow(
-                    L"STATIC",
-                    L"TWO",
-                    WS_VISIBLE | WS_CHILD | SS_CENTER,  // will probably need SS_OWNERDRAW. the owner window recieves a WM_DRAWITEM whenever the control needs to be drawn 
-                    440,
-                    50,
-                    500,
-                    200,
-                    hwnd,
-                    (HMENU)4,
-                    HINSTANCE(),
-                    NULL);
-                break;
+                SetWindowText(StaticText, L"TWO");
+                SendMessage(StaticText, WM_SETFONT, WPARAM(hFont), TRUE);
             }
             else if (HIWORD(wp) == BN_CLICKED && LOWORD(wp) == 3) {
                 PostQuitMessage(0);
